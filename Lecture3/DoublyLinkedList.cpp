@@ -20,8 +20,8 @@ private:
     DNode *trailer;
 
 public:
-    DLinkedList(void);
-    ~DLinkedList(void);
+    DLinkedList();
+    ~DLinkedList();
 
     bool isEmpty(void) const;
 
@@ -38,14 +38,14 @@ protected:
     void del(DNode *nodep);
 };
 
-DLinkedList::DLinkedList(void)
+DLinkedList::DLinkedList()
 {
     header = new DNode;
     trailer = new DNode;
     header->next = trailer;
     trailer->prev = header;
 }
-DLinkedList::~DLinkedList(void)
+DLinkedList::~DLinkedList()
 {
     while (!isEmpty())
         removeFront();
