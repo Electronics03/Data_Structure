@@ -1,5 +1,5 @@
 #include <iostream>
-#include "CDList.hpp"
+#include "CDList.h"
 
 int main()
 {
@@ -57,6 +57,7 @@ int main()
 	playList.remove();
 	std::cout << playList << std::endl;
 
+	getchar();
+
 	return EXIT_SUCCESS;
 }
-// g++ HW1/main.cpp HW1/CDList.cpp -o HW1/main
