@@ -1,34 +1,7 @@
-#include <cstdlib>
-#include <iostream>
-#include <string>
+#ifndef SINGLELIST_IMPLEMENTATION
+#define SINGLELIST_IMPLEMENTATION
 
-using namespace std;
-template <typename E>
-class SLinkedList;
-template <typename E>
-class SNode
-{
-private:
-    E elem;
-    SNode<E> *next;
-    friend class SLinkedList<E>;
-};
-
-template <typename E>
-class SLinkedList
-{
-public:
-    SLinkedList();
-    ~SLinkedList();
-
-    bool empty(void) const;
-    const E &front(void) const;
-    void addFront(const E &e);
-    void removeFront(void);
-
-private:
-    SNode<E> *head;
-};
+#include "SingleList.h"
 
 template <typename E>
 SLinkedList<E>::SLinkedList() : head(nullptr) {}
@@ -50,6 +23,8 @@ bool SLinkedList<E>::empty(void) const
 template <typename E>
 const E &SLinkedList<E>::front(void) const
 {
+    if (empty())
+        throw ListError("Error: List is empty.front()");
     return (head->elem);
 }
 
@@ -67,11 +42,9 @@ template <typename E>
 void SLinkedList<E>::removeFront(void)
 {
     if (empty())
-    {
-        std::cout << "ERROR: Cannot remove from an empty list." << std::endl;
-        return;
-    }
+        throw ListError("Error: List is empty.removeFront()");
     SNode<E> *v = head;
     head = v->next;
     delete v;
 }
+#endif
