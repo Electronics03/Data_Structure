@@ -98,8 +98,11 @@ void Scores::add(const GameEntry &e)
 // Remove Function: 지정된 인덱스의 점수 제거 및 반환
 GameEntry Scores::remove(int i)
 {
+    if ((i < 0) || (i >= numEntries))
+    {
+        throw out_of_range("Invalid Index");
+    }
     GameEntry e = entries[i]; // 제거할 항목 저장
-
     // 오른쪽 요소들을 왼쪽으로 Shift
     for (int j = i + 1; j < numEntries; j++)
         entries[j - 1] = entries[j];
@@ -132,7 +135,7 @@ int main(void)
     A.add(G5);
 
     // 가장 높은 점수부터 차례로 삭제하며 출력
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
         GameEntry User = A.remove(0);   // Always Remove Highest Score (Index 0)
         cout << User.getName() << "|";  // Print Name
