@@ -1,5 +1,5 @@
 /*
- * Array를 이용하여 Game Score과 Name을 관리하는 코드
+ * Array를 이용하여 GameScore과 Name을 관리하는 코드
  * GameEntry class:
  *      name-score 값을 지님
  * Scores class:
