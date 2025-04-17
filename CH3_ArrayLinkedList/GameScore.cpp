@@ -42,6 +42,7 @@ public:
     ~Scores();                    // Destructor (Dynamic Allocation 해제)
     void add(const GameEntry &e); // Add GameEntry to Sorted List
     GameEntry remove(int i);      // Remove GameEntry at Index i
+    // GameEntry remove(int i) throw(out_of_range); 이건 C++17 에서 삭제되었으므로 쓸 수가 없다
 
 private:
     int maxEntries;     // Maximum Number of Entries
