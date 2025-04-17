@@ -24,10 +24,6 @@ public:
     const string &front(void) const; // 리스트의 첫 번째 요소를 반환하는 함수 (참조 반환)
     void addFront(const string &e);  // 리스트의 맨 앞에 요소를 추가하는 함수
     void removeFront(void);          // 리스트의 맨 앞 요소를 제거하는 함수
-
-    friend ostream &operator<<(ostream &os, const StringLinkedList &list);
-    // 리스트 전체를 출력할 수 있게 도와주는 연산자 오버로딩
-
 private:
     StringNode *head; // 리스트의 첫 번째 노드를 가리키는 포인터(head pointer)
 };
