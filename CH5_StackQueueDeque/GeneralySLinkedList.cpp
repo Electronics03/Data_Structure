@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include <stdexcept>
 
 using namespace std;
 template <typename E>
@@ -51,8 +50,6 @@ bool SLinkedList<E>::empty(void) const
 template <typename E>
 const E &SLinkedList<E>::front(void) const
 {
-    if (empty())
-        throw out_of_range("Error: empty list.");
     return (head->elem);
 }
 
@@ -77,35 +74,4 @@ void SLinkedList<E>::removeFront(void)
     SNode<E> *v = head;
     head = v->next;
     delete v;
-}
-
-int main(void)
-{
-    SLinkedList<string> A;
-    A.addFront("Chung-Ang Univ");
-    A.addFront("CAU");
-    A.addFront("EEE");
-    A.addFront("Chung-Ang Univ");
-    A.addFront("CAU");
-    A.addFront("EEE");
-    while (!A.empty())
-    {
-        cout << A.front() << endl;
-        A.removeFront();
-    }
-    A.removeFront();
-    SLinkedList<int> B;
-    B.addFront(1);
-    B.addFront(3);
-    B.addFront(2);
-    B.addFront(1);
-    B.addFront(2);
-    B.addFront(6);
-    while (!B.empty())
-    {
-        cout << B.front() << endl;
-        B.removeFront();
-    }
-    B.removeFront();
-    return 0;
 }

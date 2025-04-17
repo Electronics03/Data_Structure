@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 using namespace std;
 
@@ -48,6 +49,8 @@ bool StringLinkedList::empty(void) const
 // 리스트의 첫 번째 요소를 반환하는 함수
 const string &StringLinkedList::front(void) const
 {
+    if (empty())
+        throw out_of_range("Error: empty list.");
     return (head->elem); // head 노드의 문자열 데이터를 반환
 }
 
@@ -88,5 +91,6 @@ int main(void)
         cout << A.front() << endl;
         A.removeFront();
     }
+    A.removeFront();
     return 0;
 }

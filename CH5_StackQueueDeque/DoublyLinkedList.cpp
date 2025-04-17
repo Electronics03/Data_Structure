@@ -1,7 +1,6 @@
 #include <cstdlib>  // 표준 유틸리티 함수들(ex. malloc/free 등)을 위한 헤더
 #include <iostream> // 표준 입출력 스트림 사용을 위한 헤더
 #include <string>   // string 클래스 사용을 위한 헤더
-#include <stdexcept>
 
 using namespace std; // std 네임스페이스 안의 모든 것을 전역에서 사용
 
@@ -71,16 +70,12 @@ bool DLinkedList::empty(void) const
 // 첫 번째 요소를 참조로 반환하는 함수
 const Elem &DLinkedList::front(void)
 {
-    if (empty())
-        throw out_of_range("Error: empty list.");
     return (header->next->elem); // 헤더 다음 노드의 데이터를 반환
 }
 
 // 마지막 요소를 참조로 반환하는 함수
 const Elem &DLinkedList::back(void)
 {
-    if (empty())
-        throw out_of_range("Error: empty list.");
     return (trailer->prev->elem); // 트레일러 이전 노드의 데이터를 반환
 }
 
@@ -145,9 +140,6 @@ int main(void)
     A.addFront("World");
     tmp = A.front();
     std::cout << tmp << std::endl;
-    A.removeFront();
-    A.removeFront();
-    A.removeFront();
-    A.removeFront();
+
     return 0;
 }

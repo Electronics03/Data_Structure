@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include <stdexcept>
 
 using namespace std;
 typedef string Elem;
@@ -54,24 +53,18 @@ bool CircleList::empty(void) const
 // 커서의 다음 노드에 있는 데이터를 반환
 const Elem &CircleList::front(void)
 {
-    if (empty())
-        throw out_of_range("Error: empty list.");
     return (cursor->next->elem); // 커서 다음 노드의 element를 반환
 }
 
 // 커서가 가리키는 노드의 데이터를 반환
 const Elem &CircleList::back(void)
 {
-    if (empty())
-        throw out_of_range("Error: empty list.");
     return (cursor->elem); // 커서가 가리키는 현재 노드의 element 반환
 }
 
 // 커서를 한 칸 앞으로 이동시키는 함수
 void CircleList::advance(void)
 {
-    if (empty())
-        throw out_of_range("Error: empty list.");
     cursor = cursor->next; // 커서를 다음 노드로 이동
 }
 
@@ -125,10 +118,5 @@ int main(void)
     A.remove();                          // C++->World*
     std::cout << A.back() << std::endl;  // World
     std::cout << A.front() << std::endl; // C++
-    A.remove();
-    A.remove();
-    A.remove();
-    A.remove();
-    A.remove();
     return 0;
 }
