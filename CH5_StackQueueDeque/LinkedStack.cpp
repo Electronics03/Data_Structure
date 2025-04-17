@@ -60,4 +60,13 @@ int main(void)
         A.pop();
     }
     return 0;
-} // g++ -o CH5_StackQueueDeque/LinkedStack.exe CH5_StackQueueDeque/LinkedStack.cpp CH5_StackQueueDeque/SingleList.cpp CH5_StackQueueDeque/DataError.cpp
+}
+/*
+ * g++                                      -> 컴파일러
+ * -o CH5_StackQueueDeque/LinkedStack.exe   -> exe 파일 이름, 위치
+ * CH5_StackQueueDeque/LinkedStack.cpp      -> 함께 하는 파일 이름, 위치
+ * CH5_StackQueueDeque/SingleList.cpp       -> 함께 하는 파일 이름, 위치
+ * CH5_StackQueueDeque/DataError.cpp        -> 함께 하는 파일 이름, 위치
+ *
+ * g++ -o CH5_StackQueueDeque/LinkedStack.exe CH5_StackQueueDeque/LinkedStack.cpp CH5_StackQueueDeque/SingleList.cpp CH5_StackQueueDeque/DataError.cpp
+ */

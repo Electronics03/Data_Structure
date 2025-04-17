@@ -4,6 +4,9 @@
 #include "DataError.h"
 
 template <typename E>
+class DoubleList;
+
+template <typename E>
 class DNode
 {
 private:
@@ -25,8 +28,8 @@ public:
     ~DoubleList();
 
     bool empty(void) const;
-    const E &front(void);
-    const E &back(void);
+    const E &front(void) const;
+    const E &back(void) const;
 
     void addFront(const E &elem);
     void addBack(const E &elem);

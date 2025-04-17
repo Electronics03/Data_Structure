@@ -28,7 +28,7 @@ bool DoubleList<E>::empty(void) const
 }
 
 template <typename E>
-const E &DoubleList<E>::front(void)
+const E &DoubleList<E>::front(void) const
 {
     if (empty())
         throw ListError("Error: List is empty.");
@@ -36,7 +36,7 @@ const E &DoubleList<E>::front(void)
 }
 
 template <typename E>
-const E &DoubleList<E>::back(void)
+const E &DoubleList<E>::back(void) const
 {
     if (empty())
         throw ListError("Error: List is empty.");

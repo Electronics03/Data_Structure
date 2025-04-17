@@ -20,7 +20,7 @@ bool CircleList<E>::empty(void) const
 }
 
 template <typename E>
-const E &CircleList<E>::front(void)
+const E &CircleList<E>::front(void) const
 {
     if (empty())
         throw ListError("Error: List is empty.");
@@ -28,7 +28,7 @@ const E &CircleList<E>::front(void)
 }
 
 template <typename E>
-const E &CircleList<E>::back(void)
+const E &CircleList<E>::back(void) const
 {
     if (empty())
         throw ListError("Error: List is empty.");

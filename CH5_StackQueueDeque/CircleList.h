@@ -4,6 +4,9 @@
 #include "DataError.h"
 
 template <typename E>
+class CircleList;
+
+template <typename E>
 class CNode
 {
 private:
@@ -20,8 +23,8 @@ public:
     ~CircleList();
 
     bool empty(void) const;
-    const E &front(void);
-    const E &back(void);
+    const E &front(void) const;
+    const E &back(void) const;
     void advance(void);
     void add(const E &e);
     void remove(void);

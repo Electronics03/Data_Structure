@@ -23,4 +23,23 @@ public:
     const char *what() const noexcept override;
 };
 
+class QueueError : public std::exception
+{
+private:
+    std::string message;
+
+public:
+    QueueError(const std::string &errorMessage);
+    const char *what() const noexcept override;
+};
+
+class DequeError : public std::exception
+{
+private:
+    std::string message;
+
+public:
+    DequeError(const std::string &errorMessage);
+    const char *what() const noexcept override;
+};
 #endif
