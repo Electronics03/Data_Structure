@@ -10,6 +10,7 @@ using Elem = std::string;
 
 class Node
 {
+private:
     Elem elem;
     Node *next;
     friend class SLinkedList;

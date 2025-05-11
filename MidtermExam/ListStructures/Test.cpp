@@ -1,19 +1,22 @@
-#include "SinglyLinkedList.h"
+#include "CircularlyLinkedList.h"
 
 int main(void)
 {
-    SLinkedList A;
-    A.addFront("Chung-Ang Univ");
-    A.addFront("CAU");
-    A.addFront("EEE");
-    A.addFront("Chung-Ang Univ");
-    A.addFront("CAU");
-    A.addFront("EEE");
-    while (!A.empty())
-    {
-        std::cout << A.front() << std::endl;
-        A.removeFront();
-    }
-    A.removeFront();
+    CLinkedList A;
+    A.add("Hello");                      // Hello*
+    A.add("World");                      // World->Hello*
+    A.add("C++");                        // C++->World->Hello*
+    A.advance();                         // World->Hello->C++*
+    std::cout << A.back() << std::endl;  // C++
+    std::cout << A.front() << std::endl; // World
+    A.advance();                         // Hello->C++->World*
+    A.remove();                          // C++->World*
+    std::cout << A.back() << std::endl;  // World
+    std::cout << A.front() << std::endl; // C++
+    A.remove();
+    A.remove();
+    A.remove();
+    A.remove();
+    A.remove();
     return 0;
 }
