@@ -1,22 +1,18 @@
-#include "CircularlyLinkedList.h"
+#include "LinkedDeque.h"
 
 int main(void)
 {
-    CLinkedList A;
-    A.add("Hello");                      // Hello*
-    A.add("World");                      // World->Hello*
-    A.add("C++");                        // C++->World->Hello*
-    A.advance();                         // World->Hello->C++*
-    std::cout << A.back() << std::endl;  // C++
-    std::cout << A.front() << std::endl; // World
-    A.advance();                         // Hello->C++->World*
-    A.remove();                          // C++->World*
-    std::cout << A.back() << std::endl;  // World
-    std::cout << A.front() << std::endl; // C++
-    A.remove();
-    A.remove();
-    A.remove();
-    A.remove();
-    A.remove();
+    LinkedDeque A;
+    A.insertFront("Hello");
+    A.insertFront("World");
+    A.insertFront("C++");
+    A.insertBack("Hello");
+    A.insertBack("World");
+    A.insertBack("C++");
+    while (!A.empty())
+    {
+        std::cout << A.front() << " " << A.back() << std::endl;
+        A.removeFront();
+    }
     return 0;
 }
