@@ -57,17 +57,17 @@ void CDList::remove()
 {
     if (empty())
         throw ListError("Error: List is empty.");
-    Node *delNp = cursor->next;
-    if (delNp == cursor)
+    Node *delNode = cursor->next;
+    if (delNode == cursor)
     {
         cursor = nullptr;
     }
     else
     {
-        delNp->next->prev = cursor;
-        cursor->next = delNp->next;
+        delNode->next->prev = cursor;
+        cursor->next = delNode->next;
     }
-    delete delNp;
+    delete delNode;
 }
 bool CDList::empty()
 {
