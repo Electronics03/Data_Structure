@@ -28,6 +28,7 @@ public:
     bool empty();
     void forward();
     void backward();
+    friend std::ostream &operator<<(std::ostream &os, const CDList &list);
 };
 CDList::CDList() : cursor(nullptr) {}
 CDList::~CDList()
@@ -80,5 +81,36 @@ void CDList::forward()
 void CDList::backward()
 {
     cursor = cursor->prev;
+}
+std::ostream &operator<<(std::ostream &os, const CDList &list)
+{
+    if (list.cursor == nullptr)
+    {
+        os << "ERROR: Cannot print. The list is empty." << std::endl;
+        return os;
+    }
+    Node *start = list.cursor->next;
+    Node *finish = list.cursor;
+    Node *current = start;
+    os << "Forward hopping: ";
+    while (current != finish)
+    {
+        os << current->element << "->";
+        current = current->next;
+    }
+    os << current->element << "*\n";
+
+    start = list.cursor->prev;
+    finish = list.cursor;
+    current = start;
+    os << "Backward hopping: ";
+    while (current != finish)
+    {
+        os << current->element << "->";
+        current = current->prev;
+    }
+    os << current->element << "*\n";
+
+    return os;
 }
 #endif
