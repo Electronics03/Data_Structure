@@ -125,8 +125,8 @@ void DLinkedList::remove(Node *v)
 - `v`가 가리키는 노드를 삭제해야 한다.
 - 일단 리스트가 비어있다면 예외처리 `throw ListError("Error: List is empty.");`
 - 이전 노드를 `u`, 다음노드를 `v`로 설정 `Node *u = v->prev; Node *w = v->next;`
-- 이전 노드의 다음을 `v`로 설정 `u->next = w;`
-- 다음노드의 이전을 `u`로 설정 `w->prev = u;`
+- 이전 노드의 다음을 `w`로 설정 `u->next = w;`
+- 다음 노드의 이전을 `u`로 설정 `w->prev = u;`
 - `v`할당 해제
 
 ## 코드

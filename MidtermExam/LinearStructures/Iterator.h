@@ -115,6 +115,8 @@ void Nodelist::insert(const Iterator &point, const Elem &elem)
 }
 void Nodelist::erase(const Iterator &point)
 {
+    if (empty())
+        throw ListError("Error: List is empty.");
     Node *delNode = point.presNode;
     Node *prevNode = delNode->prev;
     Node *nextNode = delNode->next;
