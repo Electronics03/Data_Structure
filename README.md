@@ -8,3 +8,4 @@
 ### [4. LinkedStack](./MidtermExam/LinearStructures/4_LinkedStack.md)
 ### [5. LinkedQueue](./MidtermExam/LinearStructures/5_LinkedQueue.md)
 ### [6. LinkedDeque](./MidtermExam/LinearStructures/6_LinkedDeque.md)
+### [7. Iterator](./MidtermExam/LinearStructures/7_Iterator.md)
