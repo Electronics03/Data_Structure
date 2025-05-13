@@ -98,6 +98,70 @@ Tree::Position Tree::addChild(const Tree::Position &p, const Elem &e)
     n++;
     return Position(newNode);
 }
+int depth(Tree &T, Tree::Position p)
+{
+    if (p.isRoot())
+        return 0;
+    else
+        return 1 + depth(T, p.parent());
+}
+int height1(Tree &T)
+{
+    int h = 0;
+    Tree::PositionList posList = T.positions();
+    for (Tree::PositionList::iterator iter = posList.begin(); iter != posList.end(); ++iter)
+    {
+        if (iter->isExternal())
+            h = max(h, depth(T, *iter));
+    }
+    return h;
+}
+int height2(Tree &T, Tree::Position p)
+{
+    if (p.isExternal())
+        return 0;
+    int h = 0;
+    Tree::PositionList posList = p.children();
+    for (Tree::PositionList::iterator iter = posList.begin(); iter != posList.end(); ++iter)
+        h = max(h, height2(T, *iter));
+    return h + 1;
+}
+void preorderPrint(Tree T, Tree::Position p)
+{
+    cout << *p;
+    Tree::PositionList chList = p.children();
+    for (Tree::Position ch : chList)
+    {
+        cout << " ";
+        preorderPrint(T, ch);
+    }
+}
+void parenPrint(Tree T, Tree::Position p)
+{
+    cout << *p;
+    if (!p.isExternal())
+    {
+        Tree::PositionList chList = p.children();
+        cout << "(";
+        for (Tree::PositionList::iterator ch = chList.begin(); ch != chList.end(); ++ch)
+        {
+            if (ch != chList.begin())
+                cout << " ";
+            parenPrint(T, *ch);
+        }
+        cout << ")";
+    }
+}
+void postoderPrint(Tree T, Tree::Position p)
+{
+    Tree::PositionList chList = p.children();
+    for (Tree::Position ch : chList)
+    {
+        cout << " ";
+        postoderPrint(T, ch);
+    }
+    cout << *p;
+}
 
 int main()
 {
@@ -129,6 +193,10 @@ int main()
     {
         cout << *pos << endl;
     }
-
+    cout << depth(tree, child3) << endl;
+    cout << height2(tree, tree.root()) << endl;
+    preorderPrint(tree, root);
+    parenPrint(tree, root);
+    postoderPrint(tree, root);
     return 0;
 }
