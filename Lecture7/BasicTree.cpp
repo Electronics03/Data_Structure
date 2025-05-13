@@ -3,7 +3,8 @@
 #include <list>
 #include <string>
 
-using Elem = std::string;
+using namespace std;
+using Elem = string;
 
 class Tree
 {
@@ -12,7 +13,7 @@ private:
     {
         Elem elem;
         Node *parent;
-        std::list<Node *> children;
+        list<Node *> children;
         Node() : elem(), parent(nullptr), children() {}
     };
 
@@ -31,7 +32,7 @@ public:
         bool isExternal(void) const;
         friend class Tree;
     };
-    using PositionList = std::list<Position>;
+    using PositionList = list<Position>;
 
 public:
     Tree();
@@ -48,8 +49,9 @@ private:
     void preorder(Node *v, PositionList &pl) const
     {
         pl.push_back(Position(v));
-        for (Node *child : v->children)
-            preorder(child, pl);
+        if (!(Position(v).isExternal()))
+            for (Node *child : v->children)
+                preorder(child, pl);
     }
 };
 Tree::Position::Position(Node *u) : v(u) {}
@@ -100,19 +102,32 @@ Tree::Position Tree::addChild(const Tree::Position &p, const Elem &e)
 int main()
 {
     Tree tree;
-    auto root = tree.addRoot("Root");
+    Tree::Position root = tree.addRoot("Root");
     std::cout << "Root: " << *root << std::endl;
 
-    auto child1 = tree.addChild(root, "Child 1");
-    auto child2 = tree.addChild(root, "Child 2");
-    auto child3 = tree.addChild(child1, "Child 1.1");
+    Tree::Position child1 = tree.addChild(root, "  Child 1");
+    Tree::Position child2 = tree.addChild(root, "  Child 2");
+    Tree::Position child3 = tree.addChild(child1, "    Child 1.1");
+    tree.addChild(child1, "    Child 1.2");
+    tree.addChild(child1, "    Child 1.3");
+    tree.addChild(child1, "    Child 1.4");
+    tree.addChild(child2, "    Child 2.1");
+    tree.addChild(child2, "    Child 2.2");
+    tree.addChild(child2, "    Child 2.3");
+    tree.addChild(root, "  Child 3");
+    tree.addChild(root, "  Child 4");
+    tree.addChild(root, "  Child 5");
+    tree.addChild(child3, "      Child 1.1.1");
+    tree.addChild(child3, "      Child 1.1.2");
+    tree.addChild(child3, "      Child 1.1.3");
+    tree.addChild(child3, "      Child 1.1.4");
+
+    Tree::PositionList posList = tree.positions();
 
     std::cout << "Tree Structure (Pre-order):" << std::endl;
-    for (auto pos : tree.positions())
+    for (Tree::Position pos : posList)
     {
-        for (int i = 0; i < pos.parent().children().size(); i++)
-            std::cout << "  ";
-        std::cout << *pos << std::endl;
+        cout << *pos << endl;
     }
 
     return 0;
