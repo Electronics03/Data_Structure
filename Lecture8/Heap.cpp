@@ -57,6 +57,8 @@ public:
     void addLast(const Elem &elt, const Key &k);
     void removeLast(void);
     void swap(const Position &p, const Position &q);
+    void insert(const Elem &elt, const Key &k);
+    void removeMax(void);
 
 protected:
     void preorder(Node *v, PositionList &pl);
@@ -151,6 +153,42 @@ void Heap::swap(const Position &p, const Position &q)
     *q = tmpElt;
     q.getKey() = tmpKey;
 }
+void Heap::insert(const Elem &elt, const Key &k)
+{
+    addLast(elt, k);
+    Position v = last();
+    while (!v.isRoot() && (v > v.parent()))
+    {
+        swap(v, v.parent());
+        v = v.parent();
+    }
+}
+void Heap::removeMax(void)
+{
+    if (empty())
+        throw TreeError("Error: Tree is empty.");
+
+    swap(root(), last());
+    removeLast();
+
+    if (empty())
+        return;
+
+    Position v = root();
+
+    while (v.hasLeft())
+    {
+        Position bigChild = v.left();
+        if (v.hasRight() && v.right() > v.left())
+            bigChild = v.right();
+
+        if (v >= bigChild)
+            break;
+
+        swap(v, bigChild);
+        v = bigChild;
+    }
+}
 
 void Heap::preorder(Node *v, PositionList &pl)
 {
@@ -167,4 +205,19 @@ void Heap::inorder(Node *v, PositionList &pl)
     pl.push_back(Position(v));
     if (v->right != nullptr)
         inorder(v->right, pl);
+}
+int main()
+{
+    Heap h;
+    h.insert("apple", 4);
+    h.insert("banana", 2);
+    h.insert("cherry", 5);
+    h.insert("date", 1);
+    h.insert("elderberry", 10);
+
+    while (!h.empty())
+    {
+        std::cout << *h.root() << " (" << h.root().getKey() << ")\n";
+        h.removeMax();
+    }
 }
