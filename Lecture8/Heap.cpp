@@ -88,6 +88,14 @@ void Heap::addLast(const Elem &elt, const Key &k)
     }
     else
     {
+        if (Position(_last).isRoot())
+        {
+            _last->left = u;
+            u->par = _last;
+            _last = u;
+            n++;
+            return;
+        }
         if (Position(_last).isLeft())
         {
             _last->par->right = u;
