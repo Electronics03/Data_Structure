@@ -217,11 +217,14 @@ void Heap::inorder(Node *v, PositionList &pl)
 int main()
 {
     Heap h;
-    h.insert("apple", 4);
-    h.insert("banana", 2);
-    h.insert("cherry", 5);
-    h.insert("date", 1);
-    h.insert("elderberry", 10);
+    h.insert("A", 4);
+    h.insert("B", 2);
+    h.insert("C", 5);
+    h.insert("D", 1);
+    h.insert("E", 10);
+    h.insert("F", 8);
+    h.insert("G", 3);
+    h.insert("H", 6);
 
     while (!h.empty())
     {
