@@ -13,9 +13,10 @@ struct Elem
 
 class Less
 {
+public:
     bool operator()(const Elem &p, const Elem &q) const
     {
-        p.comp < q.comp;
+        return p.comp < q.comp;
     }
 };
 
@@ -27,7 +28,7 @@ private:
 
 protected:
     typedef typename std::vector<E>::iterator Position;
-    Position pos(int i) { return V.begin() + i }
+    Position pos(int i) { return V.begin() + i; }
     int idx(const Position &p) const { return p - V.begin(); }
 
 public:
@@ -36,9 +37,9 @@ public:
     Position left(const Position &p) { return pos(2 * idx(p)); }
     Position right(const Position &p) { return pos(2 * idx(p) + 1); }
     Position parent(const Position &p) { return pos(idx(p) / 2); }
-    bool hasLeft(const Position &p) const { 2 * idx(p) <= size(); }
-    bool hasRight(const Position &p) const { 2 * idx(p) + 1 <= size(); }
-    bool isRoot(const Position &p) const { idx(p) == 1 };
+    bool hasLeft(const Position &p) const { return 2 * idx(p) <= size(); }
+    bool hasRight(const Position &p) const { return 2 * idx(p) + 1 <= size(); }
+    bool isRoot(const Position &p) const { return idx(p) == 1; }
     Position root(void) { return pos(1); }
     Position last(void) { return pos(size()); }
     void addLast(const E &e) { V.push_back(e); }
@@ -54,6 +55,7 @@ template <typename E, typename C>
 class HeapPriorityQueue
 {
 public:
+    typename std::vector<E>::iterator root(void) { return T.root(); }
     int size(void) const;
     bool empty(void) const;
     void insert(const E &e);
@@ -95,7 +97,7 @@ void HeapPriorityQueue<E, C>::removeMin(void)
         Position u = T.root();
         T.swap(u, T.last());
         T.removeLast();
-        while (!T.hasLeft(u))
+        while (T.hasLeft(u))
         {
             Position v = T.left(u);
             if (T.hasRight(u) && isLess(*(T.right(u)), *v))
@@ -106,5 +108,21 @@ void HeapPriorityQueue<E, C>::removeMin(void)
                 u = v;
             }
         }
+    }
+}
+int main()
+{
+    HeapPriorityQueue<Elem, Less> h;
+    h.insert({"A", 4});
+    h.insert({"B", 2});
+    h.insert({"C", 5});
+    h.insert({"E", 10});
+    h.insert({"F", 8});
+    h.insert({"G", 3});
+    h.insert({"H", 6});
+    while (!h.empty())
+    {
+        std::cout << (*(h.root())).comp << std::endl;
+        h.removeMin();
     }
 }
