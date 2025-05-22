@@ -112,6 +112,7 @@ void HeapPriorityQueue<E, C>::removeMin(void)
         }
     }
 }
+
 int main()
 {
     HeapPriorityQueue<Elem, Less> h;
