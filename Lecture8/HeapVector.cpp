@@ -65,7 +65,7 @@ public:
 private:
     VectorCompleteTree<E> T;
     C isLess;
-    typedef typename VectorCompleteTree<E>::Position Position;
+    typedef typename std::vector<E>::iterator Position;
 };
 template <typename E, typename C>
 int HeapPriorityQueue<E, C>::size(void) const { return T.size(); }
@@ -102,11 +102,13 @@ void HeapPriorityQueue<E, C>::removeMin(void)
             Position v = T.left(u);
             if (T.hasRight(u) && isLess(*(T.right(u)), *v))
                 v = T.right(u);
-            if (isLess(*u, *v))
+            if (isLess(*v, *u))
             {
                 T.swap(u, v);
                 u = v;
             }
+            else
+                break;
         }
     }
 }
