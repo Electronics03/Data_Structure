@@ -25,7 +25,8 @@ template <typename K, typename V>
 class Map
 {
 public:
-    using Iterator = std::list<Entry<K, V>>::iterator;
+    using Iterator = typename std::list<Entry<K, V>>::iterator;
+    using ConstIterator = typename std::list<Entry<K, V>>::const_iterator;
     int size(void) const { return data.size(); }
     bool empty(void) const { return data.empty(); }
     Iterator find(const K &k) const;
@@ -33,6 +34,7 @@ public:
     void erase(const K &k);
     Iterator begin(void) const { return data.begin(); }
     Iterator end(void) const { return data.end(); }
+    void printEnt(void) const;
 
 private:
     std::list<Entry<K, V>> data;
@@ -74,4 +76,26 @@ void Map<K, V>::erase(const K &k)
             return;
         }
     }
+}
+template <typename K, typename V>
+void Map<K, V>::printEnt(void) const
+{
+    for (ConstIterator it = data.begin(); it != data.end(); ++it)
+    {
+        Entry<K, V> ent = *it;
+        std::cout << "[" << ent.key() << ", " << ent.value() << "] ";
+    }
+    std::cout << std::endl;
+}
+int main(void)
+{
+    Map<std::string, int> myMap;
+    Map<std::string, int>::Iterator p;
+    myMap.put("Joe", 38);
+    myMap.put("Joe", 50);
+    myMap.put("Sue", 75);
+    myMap.printEnt();
+    myMap.erase("Joe");
+    myMap.printEnt();
+    return 0;
 }
