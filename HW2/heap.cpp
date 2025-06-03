@@ -1,3 +1,9 @@
+/*
+ * File: heap.cpp
+ * Description: Implementation of priority queue functions
+ * Author: Electronics03
+ */
+
 #include "heap.h"
 
 template <typename E, typename C>

@@ -1,3 +1,9 @@
+/*
+ * File: heap.h
+ * Description: Header file for the priority queue
+ * Author: Electronics03
+ */
+
 #pragma once
 
 #include <vector>
@@ -34,7 +40,7 @@ public:
     int size(void) const { return V.size() - 1; }
     // Returns the size of the complete binary tree
     // Since the root is placed at index 1, the vector size is one larger
-    // So we return one less than the vector size
+    // So I return one less than the vector size
     Position left(const Position &p) { return pos(2 * idx(p)); }
     // Returns the Position of the left child
     // In a complete binary tree stored in a vector, we can access it with index calculation

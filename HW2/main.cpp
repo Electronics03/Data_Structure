@@ -1,3 +1,9 @@
+/*
+ * File: main.cpp
+ * Description: Main function to test the implemented priority queue
+ * Author: Electronics03
+ */
+
 #include <iostream>
 #include <vector>
 #include "heap.h"
