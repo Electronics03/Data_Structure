@@ -73,14 +73,26 @@ class HeapPriorityQueue
 {
 public:
     typename std::vector<E>::iterator root(void) { return T.root(); }
+    // Returns the Position of the root
     int size(void) const;
+    // Returns the size of the heap
     bool empty(void) const;
+    // Checks whether the heap is empty
     void insert(const E &e);
+    // Inserts a new element into the heap
+    // Rearranges elements in the tree to maintain the heap property
     const E &min(void);
+    // Returns the smallest element
+    // The smallest element is located at the root
     void removeMin(void);
+    // Removes the smallest element
+    // Rearranges elements in the tree to maintain the heap property
 
 private:
     VectorCompleteTree<E> T;
+    // The complete binary tree T is used to implement the heap
     C isLess;
+    // Comparator object for comparing elements
     typedef typename std::vector<E>::iterator Position;
+    // Defines the vector's iterator type as Position
 };
