@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <list>
 #include <vector>
+#include "DataError.h"
 
 template <typename K, typename V>
 class Entry
@@ -34,7 +35,7 @@ public:
     Iterator find(const K &k);
     Iterator put(const K &k, const V &v);
     void erase(const K &k);
-    void erase(const Iterator &k);
+    void erase(const Iterator &p);
     Iterator end(void) { return Iterator(B, B.end()); }
     Iterator begin(void)
     {
@@ -51,8 +52,27 @@ protected:
     using BktArray = std::vector<Bucket>;
     using EItor = Bucket::iterator;
     using BItor = BktArray::iterator;
-    Iterator finder(const K &k);
-    Iterator inserter(const Iterator &p, const EntryType &e);
+    Iterator finder(const K &k)
+    {
+        int i = hash(k) % B.size();
+        BItor bkt = B.begin() + i;
+        Iterator p(B, bkt, bkt->begin());
+
+        while (!endOfBkt(p) && (*p).key() != k)
+            nextEntry(p);
+        return p;
+    }
+    Iterator inserter(const Iterator &p, const EntryType &e)
+    {
+        EItor ins = p.bkt->insert(p.ent, e);
+        n++;
+        return Iterator(B, p.bkt, ins);
+    }
+    void eraser(const Iterator &p)
+    {
+        p.bkt->erase(p.ent);
+        n--;
+    }
     static void nextEntry(Iterator &p)
     {
         ++p.ent;
@@ -114,23 +134,39 @@ template <typename K, typename V, typename H>
 bool HashMap<K, V, H>::empty(void) const { return (size() == 0); }
 
 template <typename K, typename V, typename H>
-typename HashMap<K, V, H>::Iterator HashMap<K, V, H>::find(const K &k) {}
-
-template <typename K, typename V, typename H>
-typename HashMap<K, V, H>::Iterator HashMap<K, V, H>::put(const K &k, const V &v) {}
-
-template <typename K, typename V, typename H>
-void HashMap<K, V, H>::erase(const K &k) {}
-
-template <typename K, typename V, typename H>
-void HashMap<K, V, H>::erase(const Iterator &k) {}
-
-template <typename K, typename V, typename H>
-typename HashMap<K, V, H>::Iterator HashMap<K, V, H>::finder(const K &k)
+typename HashMap<K, V, H>::Iterator HashMap<K, V, H>::find(const K &k)
 {
+    Iterator p = finder(k);
+    if (endOfBkt(p))
+        return end();
+    else
+        return p;
 }
 
 template <typename K, typename V, typename H>
-typename HashMap<K, V, H>::Iterator HashMap<K, V, H>::inserter(const Iterator &p, const EntryType &e)
+typename HashMap<K, V, H>::Iterator HashMap<K, V, H>::put(const K &k, const V &v)
 {
+    Iterator p = finder(k);
+    if (endOfBkt(p))
+        return Iterator(p, Entry(k, v));
+    else
+    {
+        p.ent->setValue(v);
+        return p;
+    }
+}
+
+template <typename K, typename V, typename H>
+void HashMap<K, V, H>::erase(const K &k)
+{
+    Iterator p = finder(k);
+    if (endOfBkt(p))
+        throw HashError("Erase of nonexistent");
+    eraser(p);
+}
+
+template <typename K, typename V, typename H>
+void HashMap<K, V, H>::erase(const Iterator &p)
+{
+    eraser(p);
 }
