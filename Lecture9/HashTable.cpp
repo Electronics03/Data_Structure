@@ -50,8 +50,8 @@ public:
 protected:
     using Bucket = std::list<EntryType>;
     using BktArray = std::vector<Bucket>;
-    using EItor = Bucket::iterator;
-    using BItor = BktArray::iterator;
+    using EItor = typename Bucket::iterator;
+    using BItor = typename BktArray::iterator;
     Iterator finder(const K &k)
     {
         int i = hash(k) % B.size();
@@ -107,6 +107,10 @@ public:
             else
                 return (ent == p.ent);
         }
+        bool operator!=(const Iterator &p) const
+        {
+            return !(*this == p);
+        }
         Iterator &operator++(void)
         {
             ++ent;
@@ -121,7 +125,7 @@ public:
             }
             return *this;
         }
-        friend class HashMap;
+        friend class HashMap<K, V, H>;
     };
 };
 template <typename K, typename V, typename H>
@@ -148,7 +152,7 @@ typename HashMap<K, V, H>::Iterator HashMap<K, V, H>::put(const K &k, const V &v
 {
     Iterator p = finder(k);
     if (endOfBkt(p))
-        return Iterator(p, Entry(k, v));
+        return inserter(p, EntryType(k, v));
     else
     {
         p.ent->setValue(v);
@@ -169,4 +173,44 @@ template <typename K, typename V, typename H>
 void HashMap<K, V, H>::erase(const Iterator &p)
 {
     eraser(p);
+}
+
+int main()
+{
+    HashMap<std::string, int, std::hash<std::string>> map;
+
+    map.put("apple", 100);
+    map.put("banana", 200);
+    map.put("cherry", 300);
+
+    auto it = map.find("banana");
+    if (it != map.end())
+    {
+        std::cout << "banana: " << (*it).value() << std::endl;
+    }
+    else
+    {
+        std::cout << "banana not found" << std::endl;
+    }
+
+    map.put("banana", 250);
+    it = map.find("banana");
+    if (it != map.end())
+    {
+        std::cout << "banana (updated): " << (*it).value() << std::endl;
+    }
+
+    map.erase("apple");
+    it = map.find("apple");
+    std::cout << "apple after erase: "
+              << (it == map.end() ? "not found" : std::to_string((*it).value()))
+              << std::endl;
+
+    std::cout << "\nAll entries in map:\n";
+    for (auto itr = map.begin(); itr != map.end(); ++itr)
+    {
+        std::cout << (*itr).key() << ": " << (*itr).value() << std::endl;
+    }
+
+    return 0;
 }
