@@ -1,5 +1,4 @@
-#ifndef HASHMAP_H
-#define HASHMAP_H
+#pragma once
 
 #include <iostream>
 #include <list>
@@ -93,5 +92,3 @@ public:
         friend class HashMap<K, V, H>;
     };
 };
-#include "hashMap.cpp"
-#endif
