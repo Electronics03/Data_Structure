@@ -77,3 +77,11 @@ int main(void)
 
     return 0;
 }
+/*
+ * g++                                     -> 컴파일러
+ * -o HW3/main.exe   -> exe 파일 이름, 위치
+ * HW3/main.cpp      -> 함께 하는 파일 이름, 위치
+ * HW3/hashMap.cpp
+ *
+ * g++ -o HW3/main.exe HW3/main.cpp HW3/hashMap.cpp
+ */
