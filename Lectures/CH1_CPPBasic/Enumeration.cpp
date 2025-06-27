@@ -10,12 +10,12 @@ int main(void)
     enum DAYS
     {
         mon = 100,
-        tue, // 101
-        wed, // 102
+        tue,
+        wed,
         thu = 11,
-        fri, // 12
-        sat, // 13
-        sun  // 14
+        fri,
+        sat,
+        sun
     };
     DAYS today;
     today = fri;
@@ -23,7 +23,7 @@ int main(void)
     {
     case mon:
         cout << "mon\n";
-        break; // break로 블록을 끝내야 한다
+        break;
     case tue:
         cout << "tue\n";
         break;
